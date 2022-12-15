@@ -27,7 +27,31 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     scopes: {
-      
+      keyboard: {
+        where: {
+          type: 'keyboard'
+        }
+      },
+      string: {
+        where: {
+          type: "string"
+        }
+      },
+      woodwind: {
+        where: {
+          type: 'woodwind'
+        }
+      },
+      atStore(storeId) {
+        const { Store } = require('../models');
+        return {
+          include: Store,
+          where: {
+            storeId: storeId
+          },
+          order: [['name']]
+        }
+      }
     }
   });
   return Instrument;
